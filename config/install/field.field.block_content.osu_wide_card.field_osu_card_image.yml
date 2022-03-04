@@ -9,7 +9,7 @@ id: block_content.osu_wide_card.field_osu_card_image
 field_name: field_osu_card_image
 entity_type: block_content
 bundle: osu_wide_card
-label: osu_card_image
+label: 'OSU Card Image'
 description: ''
 required: false
 translatable: true
