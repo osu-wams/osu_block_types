@@ -1,0 +1,25 @@
+<?php
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+ * Add accordion block and paragraph fields.
+ */
+function osu_block_types_update_9001(&$sandbox) {
+  $install_path = \Drupal::service('module_handler')
+    ->getModule('osu_block_types')
+    ->getPath();
+  $config_path = realpath($install_path . '/config/install');
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+  $source = new FileStorage($config_path);
+  $osu_block_field_configs = glob($config_path . '/*.yml');
+  foreach ($osu_block_field_configs as $block_field_config) {
+    $config_base_name = basename($block_field_config, '.yml');
+    // Check to see if the config already exists, if not add it.
+    if (!$config_storage->read($config_base_name)) {
+      $config_storage->write($config_base_name, $source->read($block_field_config));
+    }
+  }
+  return t('Imported new configurations.');
+}
