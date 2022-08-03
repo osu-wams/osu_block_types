@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: osu_accordion_item
-label: 'OSU Accordion Item'
+label: 'Accordion Item'
 icon_uuid: null
 icon_default: null
 description: ''
