@@ -18,7 +18,7 @@ function osu_block_types_update_9001(&$sandbox) {
     $config_base_name = basename($block_field_config, '.yml');
     // Check to see if the config already exists, if not add it.
     if (!$config_storage->read($config_base_name)) {
-      $config_storage->write($config_base_name, $source->read($block_field_config));
+      $config_storage->write($config_base_name, $source->read($config_base_name));
     }
   }
   return t('Imported new configurations.');
