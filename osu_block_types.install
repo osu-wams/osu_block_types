@@ -13,13 +13,24 @@ function osu_block_types_update_9001(&$sandbox) {
   /** @var \Drupal\Core\Config\CachedStorage $config_storage */
   $config_storage = \Drupal::service('config.storage');
   $source = new FileStorage($config_path);
-  $osu_block_field_configs = glob($config_path . '/*.yml');
-  foreach ($osu_block_field_configs as $block_field_config) {
-    $config_base_name = basename($block_field_config, '.yml');
-    // Check to see if the config already exists, if not add it.
-    if (!$config_storage->read($config_base_name)) {
-      $config_storage->write($config_base_name, $source->read($config_base_name));
-    }
-  }
+  $config_storage->write('block_content.type.osu_accordion', $source->read('block_content.type.osu_accordion'));
+  $config_storage->write('paragraphs.paragraphs_type.osu_accordion_item', $source->read('paragraphs.paragraphs_type.osu_accordion_item'));
+  $config_storage->write('paragraphs.paragraphs_type.osu_accordion_section', $source->read('paragraphs.paragraphs_type.osu_accordion_section'));
+  $config_storage->write('field.storage.block_content.field_osu_paragraph_item', $source->read('field.storage.block_content.field_osu_paragraph_item'));
+  $config_storage->write('field.storage.paragraph.field_osu_paragraph_item', $source->read('field.storage.paragraph.field_osu_paragraph_item'));
+  $config_storage->write('field.storage.paragraph.field_p_accordion_body', $source->read('field.storage.paragraph.field_p_accordion_body'));
+  $config_storage->write('field.storage.paragraph.field_p_accordion_heading', $source->read('field.storage.paragraph.field_p_accordion_heading'));
+  $config_storage->write('field.storage.paragraph.field_p_accordion_title', $source->read('field.storage.paragraph.field_p_accordion_title'));
+  $config_storage->write('field.field.block_content.osu_accordion.field_osu_paragraph_item', $source->read('field.field.block_content.osu_accordion.field_osu_paragraph_item'));
+  $config_storage->write('field.field.paragraph.osu_accordion_item.field_p_accordion_body', $source->read('field.field.paragraph.osu_accordion_item.field_p_accordion_body'));
+  $config_storage->write('field.field.paragraph.osu_accordion_item.field_p_accordion_title', $source->read('field.field.paragraph.osu_accordion_item.field_p_accordion_title'));
+  $config_storage->write('field.field.paragraph.osu_accordion_section.field_osu_paragraph_item', $source->read('field.field.paragraph.osu_accordion_section.field_osu_paragraph_item'));
+  $config_storage->write('field.field.paragraph.osu_accordion_section.field_p_accordion_heading', $source->read('field.field.paragraph.osu_accordion_section.field_p_accordion_heading'));
+  $config_storage->write('core.entity_form_display.block_content.osu_accordion.default', $source->read('core.entity_form_display.block_content.osu_accordion.default'));
+  $config_storage->write('core.entity_form_display.paragraph.osu_accordion_item.default', $source->read('core.entity_form_display.paragraph.osu_accordion_item.default'));
+  $config_storage->write('core.entity_form_display.paragraph.osu_accordion_section.default', $source->read('core.entity_form_display.paragraph.osu_accordion_section.default'));
+  $config_storage->write('core.entity_view_display.block_content.osu_accordion.default', $source->read('core.entity_view_display.block_content.osu_accordion.default'));
+  $config_storage->write('core.entity_view_display.paragraph.osu_accordion_item.default', $source->read('core.entity_view_display.paragraph.osu_accordion_item.default'));
+  $config_storage->write('core.entity_view_display.paragraph.osu_accordion_section.default', $source->read('core.entity_view_display.paragraph.osu_accordion_section.default'));
   return t('Imported new configurations.');
 }
