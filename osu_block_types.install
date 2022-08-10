@@ -2,11 +2,8 @@
 
 use Drupal\block_content\Entity\BlockContentType;
 use Drupal\Core\Config\FileStorage;
-use Drupal\Core\Entity\Entity\EntityFormDisplay;
-use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Add accordion block and paragraph fields.
@@ -29,10 +26,10 @@ function osu_block_types_update_9001(&$sandbox) {
     ->save();
 
   //Create Paragraphs Types.
-  Paragraph::create($source->read('paragraphs.paragraphs_type.osu_accordion_item'))
-    ->save();
-  Paragraph::create($source->read('paragraphs.paragraphs_type.osu_accordion_section'))
-    ->save();
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+  $config_storage->write('paragraphs.paragraphs_type.osu_accordion_item', $source->read('paragraphs.paragraphs_type.osu_accordion_item'));
+  $config_storage->write('paragraphs.paragraphs_type.osu_accordion_section', $source->read('paragraphs.paragraphs_type.osu_accordion_section'));
 
   // Create the field storage configs first.
   FieldStorageConfig::create($source->read('field.storage.block_content.field_osu_paragraph_item'))
@@ -59,19 +56,13 @@ function osu_block_types_update_9001(&$sandbox) {
     ->save();
 
   // Create the form displays.
-  EntityFormDisplay::create($source->read('core.entity_form_display.block_content.osu_accordion.default'))
-    ->save();
-  EntityFormDisplay::create($source->read('core.entity_form_display.paragraph.osu_accordion_item.default'))
-    ->save();
-  EntityFormDisplay::create($source->read('core.entity_form_display.paragraph.osu_accordion_section.default'))
-    ->save();
+  $config_storage->write('core.entity_form_display.block_content.osu_accordion.default', $source->read('core.entity_form_display.block_content.osu_accordion.default'));
+  $config_storage->write('core.entity_form_display.paragraph.osu_accordion_item.default', $source->read('core.entity_form_display.paragraph.osu_accordion_item.default'));
+  $config_storage->write('core.entity_form_display.paragraph.osu_accordion_section.default', $source->read('core.entity_form_display.paragraph.osu_accordion_section.default'));
 
   // Create the view displays.
-  EntityViewDisplay::create($source->read('core.entity_view_display.block_content.osu_accordion.default'))
-    ->save();
-  EntityViewDisplay::create($source->read('core.entity_view_display.paragraph.osu_accordion_item.default'))
-    ->save();
-  EntityViewDisplay::create($source->read('core.entity_view_display.paragraph.osu_accordion_section.default'))
-    ->save();
+  $config_storage->write('core.entity_view_display.block_content.osu_accordion.default', $source->read('core.entity_view_display.block_content.osu_accordion.default'));
+  $config_storage->write('core.entity_view_display.paragraph.osu_accordion_item.default', $source->read('core.entity_view_display.paragraph.osu_accordion_item.default'));
+  $config_storage->write('core.entity_view_display.paragraph.osu_accordion_section.default', $source->read('core.entity_view_display.paragraph.osu_accordion_section.default'));
   return t('Imported new configurations.');
 }
