@@ -8,6 +8,7 @@ dependencies:
     - field.field.block_content.osu_card.field_osu_card_link
   module:
     - layout_builder
+    - layout_builder_restrictions
     - link
     - text
 third_party_settings:
@@ -43,7 +44,7 @@ third_party_settings:
               text_alignment:
                 class: _none
               padding:
-                class: p-4
+                class: p-5
               padding_left:
                 class: _none
               padding_top:
@@ -105,6 +106,10 @@ third_party_settings:
                   class: _none
               scroll_effects:
                 class: null
+              items_alignment:
+                class: null
+              min_height:
+                class: 0
           container_wrapper_bg_color_class: ''
           container_wrapper_bg_media: null
           container: w-100
@@ -290,11 +295,11 @@ third_party_settings:
                   padding_left:
                     class: _none
                   padding_top:
-                    class: _none
+                    class: pt-4
                   padding_right:
                     class: _none
                   padding_bottom:
-                    class: _none
+                    class: pb-2
                   margin:
                     class: _none
                   margin_left:
@@ -348,6 +353,10 @@ third_party_settings:
                       class: _none
                   scroll_effects:
                     class: null
+                  items_alignment:
+                    class: null
+                  min_height:
+                    class: 0
               component_attributes:
                 block_attributes:
                   id: ''
@@ -365,6 +374,15 @@ third_party_settings:
                   style: ''
                   data: ''
         third_party_settings: {  }
+  layout_builder_restrictions:
+    allowed_block_categories: {  }
+    entity_view_mode_restriction:
+      allowed_layouts: {  }
+      denylisted_blocks: {  }
+      allowlisted_blocks: {  }
+      restricted_categories: {  }
+    entity_view_mode_restriction_by_region:
+      allowed_layouts: {  }
 id: block_content.osu_card.default
 targetEntityType: block_content
 bundle: osu_card
