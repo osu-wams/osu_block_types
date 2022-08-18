@@ -6,6 +6,25 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
 /**
+ * Update OSU Card Display.
+ */
+function osu_block_types_update_9002(&$sandbox) {
+  $install_path = \Drupal::service('module_handler')
+    ->getModule('osu_block_types')
+    ->getPath();
+  $view_display_yml = 'core.entity_view_display.block_content.osu_card.default';
+  $config_path = realpath($install_path . '/config/install');
+  $source = new FileStorage($config_path);
+  $osu_card_view_display_yml = $source->read($view_display_yml);
+  $config_storage = \Drupal::service('config.storage');
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $osu_card_view_display = $config_storage->read($view_display_yml);
+  $osu_card_view_display_update = array_merge($osu_card_view_display, $osu_card_view_display_yml);
+  $config_storage->write($view_display_yml, $osu_card_view_display_update);
+  return t('Updated the display of the OSU Card');
+}
+
+/**
  * Add accordion block and paragraph fields.
  */
 function osu_block_types_update_9001(&$sandbox) {
