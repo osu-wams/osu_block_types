@@ -6,6 +6,36 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
 /**
+ * Remove OSU Wide Card block type.
+ */
+function osu_block_types_update_9003(&$sandbox) {
+  // Load the block type config info.
+  $osu_wide_card = BlockContentType::load('osu_wide_card');
+  // Get the UUID of the block type so we can use it to delete any copy.
+  $osu_wide_card_uuid = $osu_wide_card->get('uuid');
+  // Loop over all view displays and remove out custom block type.
+  $storage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  foreach ($storage->loadMultiple() as $display) {
+    foreach ($display->getSections() as $section) {
+      foreach ($section->getComponents() as $component) {
+        // Custom views block
+        // $to_delete_plugin_id = 'views_block:my_news-block_1';
+        // Custom block
+        // $to_delete_plugin_id = 'block_content:fb4ad848-0f3c-4296-a6ba-1a9da886335b';
+        $to_delete_plugin_id = "block_content:${osu_wide_card_uuid}";
+        if ($component->getPluginId() == $to_delete_plugin_id) {
+          $section->removeComponent($component->getUuid());
+          $display->save();
+        }
+      }
+    }
+  }
+  // Finally delete the block type.
+  $osu_wide_card->delete();
+  return t('OSU Wide Card block type removed, you might need to remove layout overrides manually.');
+}
+
+/**
  * Update OSU Card Display.
  */
 function osu_block_types_update_9002(&$sandbox) {
