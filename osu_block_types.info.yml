@@ -3,7 +3,7 @@ type: module
 description: Create Different Blocks types for use in OSU Drupal.
 package: OSU
 core_version_requirement: ^9 || ^10
-version: 1.0.5
+version: 1.0.6
 dependencies:
   - core:block
   - core:layout_builder
