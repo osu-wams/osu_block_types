@@ -6,6 +6,25 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
 /**
+ * Add new view mode for OSU Cards.
+ */
+function osu_block_types_update_9004(&$sandbox) {
+  /** @var \Drupal\Core\Config\CachedStorage $config_storage */
+  $config_storage = \Drupal::service('config.storage');
+
+  $install_path = \Drupal::service('module_handler')
+    ->getModule('osu_block_types')
+    ->getPath();
+  $config_path = realpath($install_path . '/config/install');
+  $source = new FileStorage($config_path);
+
+  $osu_card_view_mode = 'core.entity_view_mode.block_content.full_image';
+  $osu_card_view_display = 'core.entity_view_display.block_content.osu_card.full_image';
+  $config_storage->write($osu_card_view_mode, $source->read($osu_card_view_mode));
+  $config_storage->write($osu_card_view_display, $source->read($osu_card_view_display));
+}
+
+/**
  * Remove OSU Wide Card block type.
  */
 function osu_block_types_update_9003(&$sandbox) {
