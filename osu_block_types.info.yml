@@ -8,4 +8,5 @@ dependencies:
   - core:block
   - core:layout_builder
   - osu_media:osu_media
+  - osu_icon_field:osu_icon_field
   - paragraphs:paragraphs
