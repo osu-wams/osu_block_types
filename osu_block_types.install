@@ -9,6 +9,12 @@ use Drupal\field\Entity\FieldStorageConfig;
  * Add new block type OSU Menu Bar Item.
  */
 function osu_block_types_update_9005(&$sandbox) {
+  /** @var Drupal\Core\ProxyClass\Extension\ModuleInstaller $module_installer_service */
+  $module_installer_service = \Drupal::service('module_installer');
+  $module_installer_service->install([
+    'osu_icon_field',
+  ]);
+
   /** @var \Drupal\Core\Config\CachedStorage $config_storage */
   $config_storage = \Drupal::service('config.storage');
 
