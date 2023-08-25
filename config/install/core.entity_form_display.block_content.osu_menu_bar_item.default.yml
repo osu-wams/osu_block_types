@@ -7,7 +7,7 @@ dependencies:
     - field.field.block_content.osu_menu_bar_item.field_osu_menu_bar_item_icon
     - field.field.block_content.osu_menu_bar_item.field_osu_menu_bar_item_link
   module:
-    - link
+    - linkit
     - osu_icon_field
 id: block_content.osu_menu_bar_item.default
 targetEntityType: block_content
@@ -21,12 +21,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_osu_menu_bar_item_link:
-    type: link_default
+    type: linkit
     weight: 1
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
   info:
     type: string_textfield
