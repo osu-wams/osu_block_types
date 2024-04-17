@@ -7,6 +7,7 @@ dependencies:
     - field.field.block_content.osu_menu_bar_item.field_osu_menu_bar_item_icon
     - field.field.block_content.osu_menu_bar_item.field_osu_menu_bar_item_link
   module:
+    - bootstrap_layout_builder
     - layout_builder
     - link
     - osu_icon_field
@@ -19,7 +20,6 @@ third_party_settings:
         layout_id: 'bootstrap_layout_builder:blb_col_1'
         layout_settings:
           label: ''
-          context_mapping: {  }
           container_wrapper_classes: position-relative
           container_wrapper_attributes: null
           container_wrapper:
@@ -39,8 +39,6 @@ third_party_settings:
                   background_attachment: not_fixed
                   background_size: cover
               text_color:
-                class: null
-              text_alignment:
                 class: null
               padding:
                 class: p-2
@@ -105,6 +103,8 @@ third_party_settings:
                   class: _none
               scroll_effects:
                 class: null
+              text_alignment:
+                class: null
               items_alignment:
                 class: null
               min_height:
@@ -130,6 +130,7 @@ third_party_settings:
               - col-md-12
               - col-12
           remove_gutters: '1'
+          context_mapping: {  }
         components:
           c9f74d7d-6ce1-4646-b23e-9464ba0b8d33:
             uuid: c9f74d7d-6ce1-4646-b23e-9464ba0b8d33
@@ -143,7 +144,7 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: link
+                type: linkit
                 label: hidden
                 settings:
                   trim_length: 80
@@ -151,6 +152,7 @@ third_party_settings:
                   url_plain: false
                   rel: '0'
                   target: '0'
+                  linkit_profile: default
                 third_party_settings: {  }
             weight: 2
             additional:
@@ -235,9 +237,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0

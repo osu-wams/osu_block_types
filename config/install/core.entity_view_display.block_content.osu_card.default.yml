@@ -1,3 +1,4 @@
+uuid: c7591d56-23fa-43ec-9758-e685073270ee
 langcode: en
 status: true
 dependencies:
@@ -7,6 +8,7 @@ dependencies:
     - field.field.block_content.osu_card.field_osu_card_image
     - field.field.block_content.osu_card.field_osu_card_link
   module:
+    - bootstrap_layout_builder
     - layout_builder
     - layout_builder_restrictions
     - link
@@ -20,7 +22,6 @@ third_party_settings:
         layout_id: 'bootstrap_layout_builder:blb_col_1'
         layout_settings:
           label: ''
-          context_mapping: {  }
           container_wrapper_classes: osu-shadow
           container_wrapper_attributes: null
           container_wrapper:
@@ -41,8 +42,6 @@ third_party_settings:
                   background_size: cover
               text_color:
                 class: osu-text-body
-              text_alignment:
-                class: _none
               padding:
                 class: p-5
               padding_left:
@@ -106,6 +105,8 @@ third_party_settings:
                   class: _none
               scroll_effects:
                 class: null
+              text_alignment:
+                class: _none
               items_alignment:
                 class: null
               min_height:
@@ -129,6 +130,7 @@ third_party_settings:
               - col-md-12
               - col-12
           remove_gutters: '1'
+          context_mapping: {  }
         components:
           92ee0256-d848-42b4-af9c-b38ec9423232:
             uuid: 92ee0256-d848-42b4-af9c-b38ec9423232
@@ -259,7 +261,7 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: link
+                type: linkit
                 label: hidden
                 settings:
                   trim_length: 80
@@ -267,6 +269,7 @@ third_party_settings:
                   url_plain: false
                   rel: '0'
                   target: '0'
+                  linkit_profile: default
                 third_party_settings: {  }
             weight: 1
             additional:
@@ -351,9 +354,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
