@@ -217,3 +217,52 @@ function osu_block_types_update_9007(&$sandbox) {
   $osu_menu_bar_item->set('content', $osu_menu_bar_item_content);
   $osu_menu_bar_item->save();
 }
+
+/**
+ * Update View mode of Menu bar item and OSU Card to use LinkIt.
+ */
+function osu_block_types_update_10000(&$sandbox) {
+  /** @var \Drupal\Core\Config\ConfigFactory $config_factory */
+  $config_factory = Drupal::service('config.factory');
+  # Get view mode for Card Default.
+  $osu_card_view_display = $config_factory->getEditable('core.entity_view_display.block_content.osu_card.default');
+  $osu_card_third_party_settings = $osu_card_view_display->get('third_party_settings');
+  $osu_card_link_config = $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['5e3d59f0-e2f7-4585-85f3-5e35aa8c6aa9']['configuration'];
+  if ($osu_card_link_config['id'] === 'field_block:block_content:osu_card:field_osu_card_link') {
+    $osu_card_link_config['formatter']['type'] = 'linkit';
+    $osu_card_link_config['formatter']['settings']['linkit_profile'] = 'default';
+    $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['5e3d59f0-e2f7-4585-85f3-5e35aa8c6aa9']['configuration'] = $osu_card_link_config;
+    $osu_card_view_display->set('third_party_settings', $osu_card_third_party_settings);
+    $osu_card_view_display->save();
+  }
+  # Get View mode for Card Full Image.
+  $osu_card_view_display = $config_factory->getEditable('core.entity_view_display.block_content.osu_card.full_image');
+  $osu_card_third_party_settings = $osu_card_view_display->get('third_party_settings');
+  $osu_card_link_config = $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['8b7fe3a9-a690-479e-852d-c83219449244']['configuration'];
+  if ($osu_card_link_config['id'] === 'field_block:block_content:osu_card:field_osu_card_link') {
+    $osu_card_link_config['formatter']['type'] = 'linkit';
+    $osu_card_link_config['formatter']['settings']['linkit_profile'] = 'default';
+    $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['8b7fe3a9-a690-479e-852d-c83219449244']['configuration'] = $osu_card_link_config;
+    $osu_card_view_display->set('third_party_settings', $osu_card_third_party_settings);
+    $osu_card_view_display->save();
+  }
+  $osu_card_image_config = $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['659e7c27-94e9-4a5f-b174-a65f76a89243']['configuration'];
+  if ($osu_card_image_config['id'] === 'field_block:block_content:osu_card:field_osu_card_image') {
+    $osu_card_image_config['formatter']['settings']['image_style'] = 'x_large_scale_crop';
+    $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['659e7c27-94e9-4a5f-b174-a65f76a89243']['configuration'] = $osu_card_image_config;
+    $osu_card_view_display->set('third_party_settings', $osu_card_third_party_settings);
+    $osu_card_view_display->save();
+  }
+  # Get view mode for OSU Menu Bar Item.
+  $osu_menu_bar_item = $config_factory->getEditable('core.entity_view_display.block_content.osu_menu_bar_item.default');
+  $osu_menu_bar_item_third_party = $osu_menu_bar_item->get('third_party_settings');
+  $osu_menu_bar_item_config = $osu_menu_bar_item_third_party['layout_builder']['sections'][0]['components']['c9f74d7d-6ce1-4646-b23e-9464ba0b8d33']['configuration'];
+  if ($osu_menu_bar_item_config['id'] === 'field_block:block_content:osu_menu_bar_item:field_osu_card_link') {
+    $osu_menu_bar_item_config['formatter']['type'] = 'linkit';
+    $osu_menu_bar_item_config['formatter']['settings']['linkit_profile'] = 'default';
+    $osu_menu_bar_item_third_party['layout_builder']['sections'][0]['components']['c9f74d7d-6ce1-4646-b23e-9464ba0b8d33']['configuration'] = $osu_menu_bar_item_config;
+    $osu_menu_bar_item->set('third_party_settings', $osu_menu_bar_item_third_party);
+    $osu_menu_bar_item->save();
+  }
+  return t('Updated view modes for OSU Card and Menu Block');
+}
