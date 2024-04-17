@@ -1,3 +1,4 @@
+uuid: c7abe275-a3f7-405b-8f90-2bd97a9dc4fd
 langcode: en
 status: true
 dependencies:
@@ -8,6 +9,7 @@ dependencies:
     - field.field.block_content.osu_card.field_osu_card_image
     - field.field.block_content.osu_card.field_osu_card_link
   module:
+    - bootstrap_layout_builder
     - layout_builder
     - layout_builder_restrictions
     - link
@@ -21,7 +23,6 @@ third_party_settings:
         layout_id: 'bootstrap_layout_builder:blb_col_1'
         layout_settings:
           label: ''
-          context_mapping: {  }
           container_wrapper_classes: osu-shadow
           container_wrapper_attributes: null
           container_wrapper:
@@ -41,8 +42,6 @@ third_party_settings:
                   background_attachment: not_fixed
                   background_size: cover
               text_color:
-                class: null
-              text_alignment:
                 class: null
               padding:
                 class: _none
@@ -107,6 +106,8 @@ third_party_settings:
                   class: _none
               scroll_effects:
                 class: null
+              text_alignment:
+                class: null
               items_alignment:
                 class: null
               min_height:
@@ -130,6 +131,7 @@ third_party_settings:
               - col-md-12
               - col-12
           remove_gutters: '1'
+          context_mapping: {  }
         components:
           659e7c27-94e9-4a5f-b174-a65f76a89243:
             uuid: 659e7c27-94e9-4a5f-b174-a65f76a89243
@@ -147,7 +149,7 @@ third_party_settings:
                 label: hidden
                 settings:
                   image_link: ''
-                  image_style: x_large
+                  image_style: x_large_scale_crop
                   image_loading:
                     attribute: lazy
                 third_party_settings: {  }
@@ -268,7 +270,7 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: link
+                type: linkit
                 label: hidden
                 settings:
                   trim_length: 80
@@ -276,6 +278,7 @@ third_party_settings:
                   url_plain: false
                   rel: '0'
                   target: '0'
+                  linkit_profile: default
                 third_party_settings: {  }
             weight: 1
             additional:
@@ -360,9 +363,11 @@ third_party_settings:
                       class: _none
                     rounded_corner_bottom_right:
                       class: _none
-                  scroll_effects:
+                  box_shadow:
                     class: null
                   items_alignment:
+                    class: null
+                  scroll_effects:
                     class: null
                   min_height:
                     class: 0
@@ -481,8 +486,6 @@ third_party_settings:
       restricted_categories: {  }
     entity_view_mode_restriction_by_region:
       allowed_layouts: {  }
-_core:
-  default_config_hash: fGfVSbHzklD9mECMk2r3vL4ygvjgMC_Aa-kVqcdDTQQ
 id: block_content.osu_card.full_image
 targetEntityType: block_content
 bundle: osu_card
