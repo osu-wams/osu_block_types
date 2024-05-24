@@ -2,13 +2,14 @@
 
 use Drupal\block_content\Entity\BlockContentType;
 use Drupal\Core\Config\FileStorage;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Add accordion block and paragraph fields.
  */
-function osu_block_types_update_9001(&$sandbox) {
+function osu_block_types_update_9001(&$sandbox): TranslatableMarkup {
   Drupal::service('module_installer')->install([
     'entity_reference_revisions',
     'paragraphs',
@@ -70,7 +71,7 @@ function osu_block_types_update_9001(&$sandbox) {
 /**
  * Update OSU Card Display.
  */
-function osu_block_types_update_9002(&$sandbox) {
+function osu_block_types_update_9002(&$sandbox): TranslatableMarkup {
   $install_path = Drupal::service('module_handler')
     ->getModule('osu_block_types')
     ->getPath();
@@ -89,7 +90,7 @@ function osu_block_types_update_9002(&$sandbox) {
 /**
  * Remove OSU Wide Card block type.
  */
-function osu_block_types_update_9003(&$sandbox) {
+function osu_block_types_update_9003(&$sandbox): TranslatableMarkup {
   // Load the block type config info.
   $osu_wide_card = BlockContentType::load('osu_wide_card');
   // Get the UUID of the block type, so we can use it to delete any copy.
@@ -104,7 +105,7 @@ function osu_block_types_update_9003(&$sandbox) {
           // $to_delete_plugin_id = 'views_block:my_news-block_1';
           // Custom block
           // $to_delete_plugin_id = 'block_content:fb4ad848-0f3c-4296-a6ba-1a9da886335b';
-          $to_delete_plugin_id = "block_content:${osu_wide_card_uuid}";
+          $to_delete_plugin_id = "block_content:$osu_wide_card_uuid";
           if ($component->getPluginId() == $to_delete_plugin_id) {
             $section->removeComponent($component->getUuid());
             $display->save();
@@ -121,7 +122,7 @@ function osu_block_types_update_9003(&$sandbox) {
 /**
  * Add new view mode for OSU Cards.
  */
-function osu_block_types_update_9004(&$sandbox) {
+function osu_block_types_update_9004(&$sandbox): void {
   /** @var \Drupal\Core\Config\CachedStorage $config_storage */
   $config_storage = Drupal::service('config.storage');
 
@@ -141,7 +142,7 @@ function osu_block_types_update_9004(&$sandbox) {
 /**
  * Add new block type OSU Menu Bar Item.
  */
-function osu_block_types_update_9005(&$sandbox) {
+function osu_block_types_update_9005(&$sandbox): void {
   /** @var Drupal\Core\ProxyClass\Extension\ModuleInstaller $module_installer_service */
   $module_installer_service = Drupal::service('module_installer');
   $module_installer_service->install([
@@ -177,7 +178,7 @@ function osu_block_types_update_9005(&$sandbox) {
 /**
  * Update field definitions.
  */
-function osu_block_types_update_9006(&$sandbox) {
+function osu_block_types_update_9006(&$sandbox): TranslatableMarkup {
   $entity_type_manager = Drupal::entityTypeManager();
   $entity_type_manager->clearCachedDefinitions();
 
@@ -198,7 +199,7 @@ function osu_block_types_update_9006(&$sandbox) {
 /**
  * Update Link fields to use linkit.
  */
-function osu_block_types_update_9007(&$sandbox) {
+function osu_block_types_update_9007(&$sandbox): void {
   /** @var \Drupal\Core\Config\ConfigFactory $config_factory */
   $config_factory = Drupal::service('config.factory');
   $osu_card_form = $config_factory->getEditable('core.entity_form_display.block_content.osu_card.default');
@@ -221,7 +222,7 @@ function osu_block_types_update_9007(&$sandbox) {
 /**
  * Update View mode of Menu bar item and OSU Card to use LinkIt.
  */
-function osu_block_types_update_10000(&$sandbox) {
+function osu_block_types_update_10000(&$sandbox): TranslatableMarkup {
   /** @var \Drupal\Core\Config\ConfigFactory $config_factory */
   $config_factory = Drupal::service('config.factory');
   # Get view mode for Card Default.
