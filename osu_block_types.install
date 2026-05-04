@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * The Install file.
+ */
+
 use Drupal\block_content\Entity\BlockContentType;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -26,7 +31,7 @@ function osu_block_types_update_9001(&$sandbox): TranslatableMarkup {
   BlockContentType::create($source->read('block_content.type.osu_accordion'))
     ->save();
 
-  //Create Paragraphs Types.
+  // Create Paragraphs Types.
   /** @var \Drupal\Core\Config\CachedStorage $config_storage */
   $config_storage = Drupal::service('config.storage');
   $config_storage->write('paragraphs.paragraphs_type.osu_accordion_item', $source->read('paragraphs.paragraphs_type.osu_accordion_item'));
@@ -88,7 +93,7 @@ function osu_block_types_update_9002(&$sandbox): TranslatableMarkup {
 }
 
 /**
- * Remove OSU Wide Card block type.
+ * Remove the OSU Wide Card block type.
  */
 function osu_block_types_update_9003(&$sandbox): TranslatableMarkup {
   // Load the block type config info.
@@ -98,13 +103,12 @@ function osu_block_types_update_9003(&$sandbox): TranslatableMarkup {
     $osu_wide_card_uuid = $osu_wide_card->get('uuid');
     // Loop over all view displays and remove out custom block type.
     $storage = Drupal::entityTypeManager()->getStorage('entity_view_display');
+    /** @var \Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay $display */
     foreach ($storage->loadMultiple() as $display) {
+      /** @var \Drupal\layout_builder\Section $section */
       foreach ($display->getSections() as $section) {
+        /** @var \Drupal\layout_builder\SectionComponent $component */
         foreach ($section->getComponents() as $component) {
-          // Custom views block
-          // $to_delete_plugin_id = 'views_block:my_news-block_1';
-          // Custom block
-          // $to_delete_plugin_id = 'block_content:fb4ad848-0f3c-4296-a6ba-1a9da886335b';
           $to_delete_plugin_id = "block_content:$osu_wide_card_uuid";
           if ($component->getPluginId() == $to_delete_plugin_id) {
             $section->removeComponent($component->getUuid());
@@ -113,14 +117,14 @@ function osu_block_types_update_9003(&$sandbox): TranslatableMarkup {
         }
       }
     }
-    // Finally delete the block type.
+    // Finally, delete the block type.
     $osu_wide_card->delete();
   }
   return t('OSU Wide Card block type removed, you might need to remove layout overrides manually.');
 }
 
 /**
- * Add new view mode for OSU Cards.
+ * Add a new view mode for OSU Cards.
  */
 function osu_block_types_update_9004(&$sandbox): void {
   /** @var \Drupal\Core\Config\CachedStorage $config_storage */
@@ -138,9 +142,8 @@ function osu_block_types_update_9004(&$sandbox): void {
   $config_storage->write($osu_card_view_display, $source->read($osu_card_view_display));
 }
 
-
 /**
- * Add new block type OSU Menu Bar Item.
+ * Add a new block type OSU Menu Bar Item.
  */
 function osu_block_types_update_9005(&$sandbox): void {
   /** @var Drupal\Core\ProxyClass\Extension\ModuleInstaller $module_installer_service */
@@ -220,12 +223,12 @@ function osu_block_types_update_9007(&$sandbox): void {
 }
 
 /**
- * Update View mode of Menu bar item and OSU Card to use LinkIt.
+ * Update the View mode of the Menu bar item and OSU Card to use LinkIt.
  */
 function osu_block_types_update_10000(&$sandbox): TranslatableMarkup {
   /** @var \Drupal\Core\Config\ConfigFactory $config_factory */
   $config_factory = Drupal::service('config.factory');
-  # Get view mode for Card Default.
+  // Get view mode for Card Default.
   $osu_card_view_display = $config_factory->getEditable('core.entity_view_display.block_content.osu_card.default');
   $osu_card_third_party_settings = $osu_card_view_display->get('third_party_settings');
   $osu_card_link_config = $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['5e3d59f0-e2f7-4585-85f3-5e35aa8c6aa9']['configuration'];
@@ -236,7 +239,7 @@ function osu_block_types_update_10000(&$sandbox): TranslatableMarkup {
     $osu_card_view_display->set('third_party_settings', $osu_card_third_party_settings);
     $osu_card_view_display->save();
   }
-  # Get View mode for Card Full Image.
+  // Get View mode for Card Full Image.
   $osu_card_view_display = $config_factory->getEditable('core.entity_view_display.block_content.osu_card.full_image');
   $osu_card_third_party_settings = $osu_card_view_display->get('third_party_settings');
   $osu_card_link_config = $osu_card_third_party_settings['layout_builder']['sections'][0]['components']['8b7fe3a9-a690-479e-852d-c83219449244']['configuration'];
@@ -254,7 +257,7 @@ function osu_block_types_update_10000(&$sandbox): TranslatableMarkup {
     $osu_card_view_display->set('third_party_settings', $osu_card_third_party_settings);
     $osu_card_view_display->save();
   }
-  # Get view mode for OSU Menu Bar Item.
+  // Get view mode for OSU Menu Bar Item.
   $osu_menu_bar_item = $config_factory->getEditable('core.entity_view_display.block_content.osu_menu_bar_item.default');
   $osu_menu_bar_item_third_party = $osu_menu_bar_item->get('third_party_settings');
   $osu_menu_bar_item_config = $osu_menu_bar_item_third_party['layout_builder']['sections'][0]['components']['c9f74d7d-6ce1-4646-b23e-9464ba0b8d33']['configuration'];
