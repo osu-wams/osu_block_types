@@ -10,5 +10,28 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "cs": "phpcs",
+        "cs-checkstyle": "phpcs -q --report=checkstyle",
+        "phpcs": "phpcs",
+        "cbf": "phpcbf",
+        "phpcbf": "phpcbf",
+        "twigcs": "twigcs"
+    },
+    "scripts-descriptions": {
+        "cs": "Check code for Drupal Standards.",
+        "cbf": "Attempt to auto fix Drupal Code Standards.",
+        "twigcs": "Check Twig templates for Standards"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+        "squizlabs/php_codesniffer": "^4.0",
+        "drupal/coder": "^9.0"
+    }
 }
