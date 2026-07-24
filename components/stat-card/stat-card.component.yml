@@ -1,0 +1,21 @@
+name: "Stat Card"
+description: "OSU Stat Card"
+status: stable
+group: OSU
+props:
+  type: object
+  required:
+    - stat_card_number
+  properties:
+    stat_card_number:
+      type: string
+      description: "The Stat Decimal Number"
+    stat_card_prefix:
+      type: string
+    stat_card_suffix:
+      type: string
+    stat_card_count_up:
+      type: boolean
+slots:
+  stat_card_description:
+    title: "Stat Description"

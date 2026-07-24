@@ -1,0 +1,16 @@
+{# stat-card.twig #}
+{% if stat_card_count_up %}
+{{ stat_card_count_up }}
+{% endif %}
+<div class="osu-stat-card">
+  <p class="display-3 font-stratum2web fw-bold text-black">
+  {%- if stat_card_prefix -%}
+    {{- stat_card_prefix -}}
+  {%- endif -%}
+  {{- stat_card_number -}}
+  {%- if stat_card_suffix -%}
+    {{- stat_card_suffix -}}
+  {%- endif -%}
+  </p>
+  {{ stat_card_description }}
+</div>
